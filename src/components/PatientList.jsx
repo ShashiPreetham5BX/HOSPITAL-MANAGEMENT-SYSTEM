@@ -4,6 +4,7 @@ import { supabase } from "../services/supabase"
 function PatientList() {
 
   const [patients, setPatients] = useState([])
+  const [search, setSearch] = useState("")
 
   async function fetchPatients() {
 
@@ -33,41 +34,62 @@ function PatientList() {
   }, [])
 
   return (
-    <div className="mt-10 w-full flex flex-wrap gap-5 justify-center">
+    <div className="mt-10 w-full">
 
-      {patients.map((patient) => (
+      {/* SEARCH INPUT */}
 
-        <div
-          key={patient.id}
-          className="bg-white shadow-lg rounded-xl p-5 w-[250px]"
-        >
+      <input
+        type="text"
+        placeholder="Search patients..."
+        className="border p-3 rounded w-full mb-8"
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-          <h2 className="text-2xl font-bold text-blue-600">
-            {patient.name}
-          </h2>
+      {/* PATIENT CARDS */}
 
-          <p className="mt-2">
-            Age: {patient.age}
-          </p>
+      <div className="flex flex-wrap gap-5 justify-center">
 
-          <p>
-            Gender: {patient.gender}
-          </p>
+        {patients
+          .filter((patient) =>
+            patient.name
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          )
+          .map((patient) => (
 
-          <p>
-            Disease: {patient.disease}
-          </p>
+            <div
+              key={patient.id}
+              className="bg-white shadow-lg rounded-xl p-5 w-[250px]"
+            >
 
-          <button
-            onClick={() => deletePatient(patient.id)}
-            className="bg-red-500 text-white px-4 py-2 rounded mt-4"
-          >
-            Delete
-          </button>
+              <h2 className="text-2xl font-bold text-blue-600">
+                {patient.name}
+              </h2>
 
-        </div>
+              <p className="mt-2">
+                Age: {patient.age}
+              </p>
 
-      ))}
+              <p>
+                Gender: {patient.gender}
+              </p>
+
+              <p>
+                Disease: {patient.disease}
+              </p>
+
+              <button
+                onClick={() => deletePatient(patient.id)}
+                className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+              >
+                Delete
+              </button>
+
+            </div>
+
+        ))}
+
+      </div>
 
     </div>
   )

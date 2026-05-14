@@ -1,17 +1,34 @@
+import Sidebar from "../layouts/Sidebar"
 import AddPatient from "../components/AddPatient"
 import PatientList from "../components/PatientList"
-
+import AppointmentForm from "../components/AppointmentForm"
+import DashboardStats from "../components/DashboardStats"
+import AnalyticsChart from "../components/AnalyticsChart"
+import MedicalRecordForm from "../components/MedicalRecordForm"
+import FileUpload from "../components/FileUpload"
+import AdminAnalytics from "../components/AdminAnalytics"
+import PrescriptionGenerator from "../components/PrescriptionGenerator"
 function Home() {
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex">
 
-      <h1 className="text-5xl font-bold text-blue-600">
-        Smart Hospital System
-      </h1>
+      <Sidebar />
 
-      <AddPatient />
+      <div className="ml-[270px] p-10 w-full">
 
-      <PatientList />
+        <h1 className="text-5xl font-bold text-blue-700">
+          Smart Hospital Dashboard
+        </h1>
+        <AdminAnalytics />
+<DashboardStats />
+        <AddPatient />
+
+        <PatientList />
+<AppointmentForm />
+<AnalyticsChart />
+<MedicalRecordForm />
+<FileUpload /><PrescriptionGenerator />
+      </div>
 
     </div>
   )
